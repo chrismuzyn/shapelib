@@ -3,7 +3,6 @@ Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.2.10
 Release: 6
-Epoch: 0
 URL: http://shapelib.maptools.org/
 Source: http://shapelib.maptools.org/dl/shapelib-%{version}.tar.gz
 Patch0: shapelib-%{version}.patch
@@ -15,9 +14,9 @@ BuildRequires: proj-devel >= 0:4.4.1
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %package devel
-Summary:	Development files for shapelib
-Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Summary: Development files for shapelib
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
 
 %description
 The Shapefile C Library provides the ability to write
@@ -30,7 +29,7 @@ This package contains libshp and the appropriate header files.
 
 %prep
 %setup -q -T -b 0
-%patch -p1 -b .buildroot 
+%patch -p1 -b .buildroot
 %patch1 -p1 -b .endian
 
 %build
@@ -60,8 +59,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %{_libdir}/*.so.*
 
-%doc LICENSE.LGPL README README.tree dbf_api.html shapelib.html shp_api.html 
-%doc contrib/doc/shpproj.txt stream1.sh stream1.out stream2.sh 
+%doc LICENSE.LGPL README README.tree dbf_api.html shapelib.html shp_api.html
+%doc contrib/doc/shpproj.txt stream1.sh stream1.out stream2.sh
 %doc stream2.out makeshape.sh stream3.out ChangeLog
 
 %files devel
@@ -92,7 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 - Removed proj requirement as it is automatically detected.
 - Added epoch to proj-devel requirement
 - Fixed %post and %postun
-- Changed group to Development/Libraries, although this appears to be only 
+- Changed group to Development/Libraries, although this appears to be only
   somewhat satisfactory.
 - Removed "which make"
 
