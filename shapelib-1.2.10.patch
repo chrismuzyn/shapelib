@@ -1,0 +1,118 @@
+diff -Naur shapelib-1.2.10.orig/Makefile shapelib-1.2.10/Makefile
+--- shapelib-1.2.10.orig/Makefile	2003-04-07 06:03:22.000000000 -0700
++++ shapelib-1.2.10/Makefile	2004-08-12 10:41:15.000000000 -0700
+@@ -1,5 +1,9 @@
++bindir = /usr/local/bin
++libdir = /usr/local/lib
++includedir = /usr/local/include
+ 
+ #LINKOPT	=	/usr/local/lib/libdbmalloc.a
++CC = gcc
+ CFLAGS	=	-g
+ 
+ default:	all
+@@ -99,21 +103,21 @@
+ LIBSHP_VERSION=1.0.1 # still once to be changed manually (see for 1:1:0), sorry
+ 
+ lib:
+-	/bin/sh ./libtool --mode=compile gcc -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1  -I. -I. -I/usr/local/include    -g -O2 -c shpopen.c
+-	gcc -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. -I. -I/usr/local/include -g -O2 -c  -fPIC -DPIC shpopen.c -o .libs/shpopen.lo
+-	gcc -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. -I. -I/usr/local/include -g -O2 -c shpopen.c -o shpopen.o >/dev/null 2>&1
++	/bin/sh ./libtool --mode=compile $(CC) -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1  -I. $(CFLAGS) $(LINKOPTS) -c shpopen.c
++	$(CC) -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. $(CFLAGS) $(LINKOPTS) -c  -fPIC -DPIC shpopen.c -o .libs/shpopen.lo
++	$(CC) -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. $(CFLAGS) $(LINKOPTS) -c shpopen.c -o shpopen.o >/dev/null 2>&1
+ 	mv -f .libs/shpopen.lo shpopen.lo
+-	/bin/sh ./libtool --mode=compile gcc -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1  -I. -I. -I/usr/local/include    -g -O2 -c shptree.c
++	/bin/sh ./libtool --mode=compile $(CC) -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1  -I. $(CFLAGS) $(LINKOPTS) -c shptree.c
+ 	rm -f .libs/shptree.lo
+-	gcc -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. -I. -I/usr/local/include -g -O2 -c  -fPIC -DPIC shptree.c -o .libs/shptree.lo
+-	gcc -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. -I. -I/usr/local/include -g -O2 -c shptree.c -o shptree.o >/dev/null 2>&1
++	$(CC) -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. $(CFLAGS) $(LINKOPTS) -c  -fPIC -DPIC shptree.c -o .libs/shptree.lo
++	$(CC) -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. $(CFLAGS) $(LINKOPTS) -c shptree.c -o shptree.o >/dev/null 2>&1
+ 	mv -f .libs/shptree.lo shptree.lo
+-	/bin/sh ./libtool --mode=compile gcc -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1  -I. -I. -I/usr/local/include    -g -O2 -c dbfopen.c
++	/bin/sh ./libtool --mode=compile $(CC) -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1  -I. $(CFLAGS) $(LINKOPTS) -c dbfopen.c
+ 	rm -f .libs/dbfopen.lo
+-	gcc -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. -I. -I/usr/local/include -g -O2 -c  -fPIC -DPIC dbfopen.c -o .libs/dbfopen.lo
+-	gcc -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. -I. -I/usr/local/include -g -O2 -c dbfopen.c -o dbfopen.o >/dev/null 2>&1
++	$(CC) -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. $(CFLAGS) $(LINKOPTS) -c  -fPIC -DPIC dbfopen.c -o .libs/dbfopen.lo
++	$(CC) -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. $(CFLAGS) $(LINKOPTS) -c dbfopen.c -o dbfopen.o >/dev/null 2>&1
+ 	mv -f .libs/dbfopen.lo dbfopen.lo
+-	/bin/sh ./libtool --mode=link gcc  -g -O2  -o libshp.la -rpath /usr/local/lib -version-info 1:1:0 shpopen.lo shptree.lo dbfopen.lo  
++	/bin/sh ./libtool --mode=link $(CC) $(CFLAGS) $(LINKOPTS)  -o libshp.la -rpath $(libdir) -version-info 1:1:0 shpopen.lo shptree.lo dbfopen.lo  
+ 	rm -fr .libs/libshp.la .libs/libshp.* .libs/libshp.*
+ 	rm -fr .libs/libshp.lax
+ 	mkdir .libs/libshp.lax
+@@ -126,17 +130,23 @@
+ 	rm -fr .libs/libshp.lax
+ 	(cd .libs && rm -f libshp.la && ln -s ../libshp.la libshp.la)
+ 
+-lib_install:
++lib_install:
+ 	cp .libs/libshp.la .libs/libshp.lai
+-	/bin/sh ./mkinstalldirs /usr/local/lib
+-	/bin/sh ./libtool  --mode=install /usr/bin/install -c libshp.la /usr/local/lib/libshp.la
+-	/usr/bin/install -c .libs/libshp.so.$(LIBSHP_VERSION) /usr/local/lib/libshp.so.$(LIBSHP_VERSION)
+-	(cd /usr/local/lib && rm -f libshp.so.1 && ln -s libshp.so.$(LIBSHP_VERSION) libshp.so.1)
+-	(cd /usr/local/lib && rm -f libshp.so && ln -s libshp.so.$(LIBSHP_VERSION) libshp.so)
+-	chmod +x /usr/local/lib/libshp.so.$(LIBSHP_VERSION)
+-	/usr/bin/install -c .libs/libshp.la /usr/local/lib/libshp.la
+-	/usr/bin/install -c .libs/libshp.a /usr/local/lib/libshp.a
+-	ranlib /usr/local/lib/libshp.a
+-	chmod 644 /usr/local/lib/libshp.a
+-	/bin/sh ./mkinstalldirs /usr/local/include/libshp
+-	/usr/bin/install -c -m 644 shapefil.h /usr/local/include/libshp/shapefil.h
++	mkdir -p $(libdir)
++	/bin/sh ./libtool  --mode=install install -c libshp.la $(libdir)/libshp.la
++	install -c .libs/libshp.so.$(LIBSHP_VERSION) $(libdir)/libshp.so.$(LIBSHP_VERSION)
++	(cd $(libdir) && rm -f libshp.so.1 && ln -s libshp.so.$(LIBSHP_VERSION) libshp.so.1)
++	(cd $(libdir) && rm -f libshp.so && ln -s libshp.so.$(LIBSHP_VERSION) libshp.so)
++	chmod +x $(libdir)/libshp.so.$(LIBSHP_VERSION)
++	install -c .libs/libshp.la $(libdir)/libshp.la
++	install -c .libs/libshp.a $(libdir)/libshp.a
++	ranlib $(libdir)/libshp.a
++	chmod 644 $(libdir)/libshp.a
++	mkdir -p $(includedir)/libshp
++	install -c -m 644 shapefil.h $(includedir)/libshp/shapefil.h
++
++bin_install: all
++	mkdir -p $(bindir)
++	install dbfadd dbfcreate dbfdump shpadd shpcreate shpdump shptest $(bindir)/
++
++install: bin_install lib_install
+diff -Naur shapelib-1.2.10.orig/contrib/Makefile shapelib-1.2.10/contrib/Makefile
+--- shapelib-1.2.10.orig/contrib/Makefile	2003-04-07 06:03:22.000000000 -0700
++++ shapelib-1.2.10/contrib/Makefile	2004-08-12 10:59:35.000000000 -0700
+@@ -1,11 +1,14 @@
++bindir = /usr/local/bin
+ 
+ #LINKOPT	=	/usr/local/lib/libdbmalloc.a
+ #CFLAGS	=	-g
+ 
+ # Endian: define either _LITTLE_ENDIAN or _BIG_ENDIAN
++CC = gcc
+ ENDIAN	=	-D_LITTLE_ENDIAN
+ 
+-CFLAGS	=	-g -I.. -DPROJ4 $(ENDIAN) -DDEBUG -DDEBUG2 
++EXTRACFLAGS   =      -g
++CFLAGS	=	$(EXTRACFLAGS) -I.. -DPROJ4 $(ENDIAN) -DDEBUG -DDEBUG2
+ 
+ SHPOBJ	=	../shpopen.o ../dbfopen.o 
+ 
+@@ -32,7 +35,7 @@
+ shpdata:	shpdata.c $(SHPGOBJ)
+ 	$(CC) $(CFLAGS) shpdata.c ${SHPOBJ} $(LINKOPT) $(GEOOBJ) -o shpdata
+ 
+-shpinfo:	shpinfo.c $(SHPOBJ)
++shpinfo:	shpinfo.c $(SHPGOBJ)
+ 	$(CC) $(CFLAGS) shpinfo.c ${SHPOBJ} $(LINKOPT) $(GEOOBJ) -o shpinfo
+ 
+ shpfix:		shpfix.c $(SHPOBJ)
+@@ -57,3 +60,7 @@
+ 
+ testproj: 
+ 	tests/shpproj.sh
++
++install: all
++	install dbfcat dbfinfo shpcat shpcentrd shpdata shpdxf shpfix shpinfo shpwkb shpproj \
++		$(bindir)
