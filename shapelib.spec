@@ -2,7 +2,8 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.2.10
-Release: 6
+Release: 7
+
 URL: http://shapelib.maptools.org/
 Source: http://shapelib.maptools.org/dl/shapelib-%{version}.tar.gz
 Patch0: shapelib-%{version}.patch
@@ -71,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/libshp.la
 
 %changelog
+* Fri Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
+- rebuilt
+
 * Sun Feb 13 2005 David Woodhouse <dwmw2@infradead.org> 0:1.2.10-6
 - Don't hard-code endianness; just use endian.h
 
