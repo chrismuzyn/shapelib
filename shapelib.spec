@@ -10,7 +10,7 @@ Patch1: shapelib-1.2.10-endian.patch
 License: LGPL/MIT
 Group: Development/Libraries
 Buildrequires: libtool
-BuildRequires: proj-devel >= 0:4.4.1
+BuildRequires: proj-devel >= 4.4.1
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %package devel
