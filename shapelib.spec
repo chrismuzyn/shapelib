@@ -2,11 +2,12 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.2.10
-Release: 5
+Release: 6
 Epoch: 0
 URL: http://shapelib.maptools.org/
 Source: http://shapelib.maptools.org/dl/shapelib-%{version}.tar.gz
 Patch0: shapelib-%{version}.patch
+Patch1: shapelib-1.2.10-endian.patch
 License: LGPL/MIT
 Group: Development/Libraries
 Buildrequires: libtool
@@ -30,6 +31,7 @@ This package contains libshp and the appropriate header files.
 %prep
 %setup -q -T -b 0
 %patch -p1 -b .buildroot 
+%patch1 -p1 -b .endian
 
 %build
 make %{?_smp_mflags} libdir=%{_libdir} CFLAGS="$RPM_OPT_FLAGS" lib
@@ -70,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/libshp.la
 
 %changelog
+* Sun Feb 13 2005 David Woodhouse <dwmw2@infradead.org> 0:1.2.10-6
+- Don't hard-code endianness; just use endian.h
+
 * Wed Dec 15 2004 David M. Kaplan <dmk@erizo.ucdavis.edu> 0:1.2.10-5
 - Patched patch and spec file according to suggestions of Michael Schwendt
 - In particular, this separates the building from the installing in the rpm.

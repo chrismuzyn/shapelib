@@ -91,7 +91,8 @@ diff -Naur shapelib-1.2.10.orig/contrib/Makefile shapelib-1.2.10/contrib/Makefil
  
  # Endian: define either _LITTLE_ENDIAN or _BIG_ENDIAN
 +CC = gcc
- ENDIAN	=	-D_LITTLE_ENDIAN
+-ENDIAN	=	-D_LITTLE_ENDIAN
++#ENDIAN	=	-D_LITTLE_ENDIAN
  
 -CFLAGS	=	-g -I.. -DPROJ4 $(ENDIAN) -DDEBUG -DDEBUG2 
 +EXTRACFLAGS   =      -g

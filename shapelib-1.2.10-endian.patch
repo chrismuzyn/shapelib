@@ -1,0 +1,24 @@
+--- shapelib-1.2.10/contrib/my_nan.h.orig	2005-02-13 12:04:41.484914852 +0000
++++ shapelib-1.2.10/contrib/my_nan.h	2005-02-13 12:07:03.306704589 +0000
+@@ -21,16 +21,18 @@
+ 
+ #define	_GNU_NAN_H	1
+ 
++#include <endian.h>
+ 
+ /* hacked to define NAN on Solaris 2.7 if it wasn't defined  */
+ 
+ /* IEEE Not A Number.  */
+ 
+-#ifdef _BIG_ENDIAN
++#if __BYTE_ORDER == __BIG_ENDIAN
+ #  define	__nan_bytes		{ 0x7f, 0xf8, 0, 0, 0, 0, 0, 0 }
+-#endif
+-#ifdef _LITTLE_ENDIAN
++#elif __BYTE_ORDER == __LITTLE_ENDIAN
+ #  define	__nan_bytes		{ 0, 0, 0, 0, 0, 0, 0xf8, 0x7f }
++#else
++#error No endianness?
+ #endif
+ 
+ #ifdef	__GNUC__
