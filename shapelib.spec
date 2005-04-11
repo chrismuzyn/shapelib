@@ -2,12 +2,12 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.2.10
-Release: 7
-
+Release: 8
 URL: http://shapelib.maptools.org/
 Source: http://shapelib.maptools.org/dl/shapelib-%{version}.tar.gz
 Patch0: shapelib-%{version}.patch
 Patch1: shapelib-1.2.10-endian.patch
+Patch2: shapelib-1.2.10-gcc4.patch
 License: LGPL/MIT
 Group: Development/Libraries
 Buildrequires: libtool
@@ -32,6 +32,7 @@ This package contains libshp and the appropriate header files.
 %setup -q -T -b 0
 %patch -p1 -b .buildroot
 %patch1 -p1 -b .endian
+%patch2 -p1 -b .gcc4
 
 %build
 make %{?_smp_mflags} libdir=%{_libdir} CFLAGS="$RPM_OPT_FLAGS" lib
@@ -72,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/libshp.la
 
 %changelog
+* Mon Apr 11 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 1.2.10-8
+- Fix "invalid lvalue in assignment" for GCC4.
+
 * Fri Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
 - rebuilt
 

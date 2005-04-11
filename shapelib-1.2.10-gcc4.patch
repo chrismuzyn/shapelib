@@ -1,0 +1,12 @@
+diff -Nur shapelib-1.2.10-orig/contrib/shpgeo.c shapelib-1.2.10/contrib/shpgeo.c
+--- shapelib-1.2.10-orig/contrib/shpgeo.c	2003-04-07 15:03:22.000000000 +0200
++++ shapelib-1.2.10/contrib/shpgeo.c	2005-04-11 20:41:37.000000000 +0200
+@@ -543,7 +543,7 @@
+    nextring = 0;
+    cParts=0;
+    while ( nextring >= 0 ) {
+-     (SHPObject*) ppsC[cParts] = SHPUnCompound ( psCShape, &nextring ); 
++     ppsC[cParts] = SHPUnCompound ( psCShape, &nextring ); 
+      cParts++;
+     }
+    
