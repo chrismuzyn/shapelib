@@ -2,15 +2,14 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.2.10
-Release: 9
+Release: 10.20060304cvs
 URL: http://shapelib.maptools.org/
 Source: http://shapelib.maptools.org/dl/shapelib-%{version}.tar.gz
-Patch0: shapelib-%{version}.patch
+Patch0: shapelib-1.2.10-Makefile.patch
 Patch1: shapelib-1.2.10-endian.patch
-Patch2: shapelib-1.2.10-gcc4.patch
+Patch2: shapelib-1.2.10-Makefile2.patch
 License: LGPL/MIT
 Group: Development/Libraries
-Buildrequires: libtool
 BuildRequires: proj-devel >= 4.4.1
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -32,7 +31,7 @@ This package contains libshp and the appropriate header files.
 %setup -q -T -b 0
 %patch -p1 -b .buildroot
 %patch1 -p1 -b .endian
-%patch2 -p1 -b .gcc4
+%patch2 -p1 -b .buildroot
 
 %build
 make %{?_smp_mflags} libdir=%{_libdir} CFLAGS="$RPM_OPT_FLAGS" lib
@@ -61,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %{_libdir}/*.so.*
 
-%doc LICENSE.LGPL README README.tree dbf_api.html shapelib.html shp_api.html
+%doc LICENSE.LGPL README README.tree web/*.html
 %doc contrib/doc/shpproj.txt stream1.sh stream1.out stream2.sh
 %doc stream2.out makeshape.sh stream3.out ChangeLog
 
@@ -73,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/libshp.la
 
 %changelog
+* Sat Mar  4 2006 Shawn McCann <mccann0011@hotmail.com> - 1.2.10-10.20060304cvs
+- Upgraded to cvs snapshot taken on March 4, 2006
+
 * Sat Mar  4 2006 Shawn McCann <mccann0011@hotmail.com> - 1.2.10-9
 - Rebuild for Fedora Extras 5
 
