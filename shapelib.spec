@@ -2,7 +2,7 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.2.10
-Release: 8
+Release: 9
 URL: http://shapelib.maptools.org/
 Source: http://shapelib.maptools.org/dl/shapelib-%{version}.tar.gz
 Patch0: shapelib-%{version}.patch
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/libshp.la
 
 %changelog
+* Sat Mar  4 2006 Shawn McCann <mccann0011@hotmail.com> - 1.2.10-9
+- Rebuild for Fedora Extras 5
+
 * Mon Apr 11 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 1.2.10-8
 - Fix "invalid lvalue in assignment" for GCC4.
 
