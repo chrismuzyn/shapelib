@@ -1,5 +1,5 @@
 --- shapelib-1.2.11-orig/contrib/Makefile	2006-01-07 12:34:14.000000000 -0800
-+++ shapelib-1.2.11/contrib/Makefile	2006-03-04 20:11:01.000000000 -0800
++++ shapelib-1.2.11/contrib/Makefile	2006-03-05 20:09:06.000000000 -0800
 @@ -1,9 +1,10 @@
 +bindir = /usr/local/bin
  
@@ -12,6 +12,15 @@
  
  CFLAGS	=	-g -I.. -DPROJ4 $(ENDIAN) -DDEBUG -DDEBUG2 
  
+@@ -32,7 +33,7 @@
+ shpdata:	shpdata.c $(SHPGOBJ)
+ 	$(CC) $(CFLAGS) shpdata.c ${SHPOBJ} $(LINKOPT) $(GEOOBJ) -o shpdata
+ 
+-shpinfo:	shpinfo.c $(SHPOBJ)
++shpinfo:	shpinfo.c $(SHPGOBJ)
+ 	$(CC) $(CFLAGS) shpinfo.c ${SHPOBJ} $(LINKOPT) $(GEOOBJ) -o shpinfo
+ 
+ shpfix:		shpfix.c $(SHPOBJ)
 @@ -64,3 +65,7 @@
  
  testproj: 
