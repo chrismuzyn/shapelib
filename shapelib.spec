@@ -2,7 +2,7 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.2.10
-Release: 11.20060304cvs
+Release: 12.20060304cvs
 URL: http://shapelib.maptools.org/
 Source: http://shapelib.maptools.org/dl/shapelib-%{version}.tar.gz
 Patch0: shapelib-1.2.10-Makefile.patch
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/libshp.la
 
 %changelog
+* Sat Sep  16 2006 Shawn McCann <mccann0011@hotmail.com> - 1.2.10-12.20060304cvs
+- Rebuild for FC6
+
 * Sun Mar  5 2006 Shawn McCann <mccann0011@hotmail.com> - 1.2.10-11.20060304cvs
 - Fixed a makefile bug that messed up parallel builds
 
