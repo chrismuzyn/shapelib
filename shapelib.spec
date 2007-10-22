@@ -2,12 +2,13 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.2.10
-Release: 12.20060304cvs
+Release: 15.20060304cvs
 URL: http://shapelib.maptools.org/
 Source: http://shapelib.maptools.org/dl/shapelib-%{version}.tar.gz
 Patch0: shapelib-1.2.10-Makefile.patch
 Patch1: shapelib-1.2.10-endian.patch
 Patch2: shapelib-1.2.10-Makefile2.patch
+Patch3: shapelib-build-id.patch
 License: LGPL/MIT
 Group: Development/Libraries
 BuildRequires: proj-devel >= 4.4.1
@@ -32,6 +33,7 @@ This package contains libshp and the appropriate header files.
 %patch -p1 -b .buildroot
 %patch1 -p1 -b .endian
 %patch2 -p1 -b .buildroot
+%patch3 -p1 -b .buildroot
 
 %build
 make %{?_smp_mflags} libdir=%{_libdir} CFLAGS="$RPM_OPT_FLAGS" lib
@@ -72,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/libshp.la
 
 %changelog
+* Sun Oct  21 2007 Shawn McCann <mccann0011@hotmail.com> - 1.2.10-15.20060304cvs
+- Fix for bug 339931
+
 * Sat Sep  16 2006 Shawn McCann <mccann0011@hotmail.com> - 1.2.10-12.20060304cvs
 - Rebuild for FC6
 
