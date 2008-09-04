@@ -2,14 +2,15 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.2.10
-Release: 16.20060304cvs
+Release: 17.20060304cvs
 URL: http://shapelib.maptools.org/
 Source: http://shapelib.maptools.org/dl/shapelib-%{version}.tar.gz
 Patch0: shapelib-1.2.10-Makefile.patch
 Patch1: shapelib-1.2.10-endian.patch
 Patch2: shapelib-1.2.10-Makefile2.patch
 Patch3: shapelib-build-id.patch
-License: LGPL/MIT
+# No version of the LGPL is given.
+License: LGPLv2+ or MIT
 Group: Development/Libraries
 BuildRequires: proj-devel >= 4.4.1
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -74,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/libshp.la
 
 %changelog
+* Thu Sep  4 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 1.2.10-17.20060304cvs
+- fix license tag
+
 * Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 1.2.10-16.20060304cvs
 - Autorebuild for GCC 4.3
 
