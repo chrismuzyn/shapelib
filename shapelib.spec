@@ -2,7 +2,7 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.2.10
-Release: 17.20060304cvs
+Release: 18.20060304cvs
 URL: http://shapelib.maptools.org/
 Source: http://shapelib.maptools.org/dl/shapelib-%{version}.tar.gz
 Patch0: shapelib-1.2.10-Makefile.patch
@@ -31,7 +31,7 @@ This package contains libshp and the appropriate header files.
 
 %prep
 %setup -q -T -b 0
-%patch -p1 -b .buildroot
+%patch0 -p1 -b .buildroot
 %patch1 -p1 -b .endian
 %patch2 -p1 -b .buildroot
 %patch3 -p1 -b .buildroot
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/libshp.la
 
 %changelog
+* Thu Sep  4 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 1.2.10-18.20060304cvs
+- fix patch application
+
 * Thu Sep  4 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 1.2.10-17.20060304cvs
 - fix license tag
 
