@@ -2,7 +2,7 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.2.10
-Release: 19.20060304cvs
+Release: 20.20060304cvs
 URL: http://shapelib.maptools.org/
 Source: http://shapelib.maptools.org/dl/shapelib-%{version}.tar.gz
 Patch0: shapelib-1.2.10-Makefile.patch
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/libshp.la
 
 %changelog
+* Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.10-20.20060304cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.10-19.20060304cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
