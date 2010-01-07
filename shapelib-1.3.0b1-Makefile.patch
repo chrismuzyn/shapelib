@@ -1,10 +1,11 @@
---- shapelib-1.2.11-orig/Makefile	2006-01-07 13:06:27.000000000 -0800
-+++ shapelib-1.2.11/Makefile	2006-03-04 19:58:22.000000000 -0800
-@@ -1,11 +1,12 @@
--
+diff -Naur shapelib-1.3.0b1/Makefile shapelib-1.3.0b1-mod/Makefile
+--- shapelib-1.3.0b1/Makefile	2007-12-13 22:27:13.000000000 +0200
++++ shapelib-1.3.0b1-mod/Makefile	2010-01-07 09:53:12.000000000 +0200
+@@ -1,11 +1,14 @@
+ 
 -#LINKOPT	=	/usr/local/lib/libdbmalloc.a 
 -#LINKOPT = 	/usr/local/lib/cpl.a
--CFLAGS	=	-g
+ CFLAGS	=	-g -Wall
 -#CFLAGS  =       -g -DUSE_CPL
  INSTALL = /usr/bin/install
  LD = /usr/bin/ld
@@ -15,16 +16,16 @@
 +includedir = /usr/local/include
 +
 +CC = gcc
-+CFLAGS	=	-g
++
  
  default:	all
  
-@@ -100,25 +101,25 @@
+@@ -103,25 +106,25 @@
  # The following is contributed by Jan-Oliver Wagner, and should allow for
  # creating shared libraries on most platforms with gcc, and libtool installed.
  
 -SHPLIB_VERSION=1.2.9
-+SHPLIB_VERSION=1.2.11
++SHPLIB_VERSION=1.3.0
  LIBSHP_VERSION=1.0.1 # still once to be changed manually (see for 1:1:0), sorry
  
  lib:
@@ -52,11 +53,11 @@
 +	$(CC) -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. $(CFLAGS) $(LINKOPTS) -c dbfopen.c -o dbfopen.o >/dev/null 2>&1
  	mv -f .libs/dbfopen.lo dbfopen.lo
 -	/bin/sh ./libtool --mode=link gcc  -g -O2  -o libshp.la -rpath /usr/local/lib -version-info 1:1:0 shpopen.lo shptree.lo dbfopen.lo  
-+	/bin/sh ./libtool --mode=link $(CC) $(CFLAGS) $(LINKOPTS)  -o libshp.la -rpath $(libdir) -version-info 1:1:0 shpopen.lo shptree.lo dbfopen.lo  
++	/bin/sh ./libtool --mode=link $(CC) $(CFLAGS) $(LINKOPTS) -o libshp.la -rpath $(libdir) -version-info 1:1:0 shpopen.lo shptree.lo dbfopen.lo
  	rm -fr .libs/libshp.la .libs/libshp.* .libs/libshp.*
  	rm -fr .libs/libshp.lax
  	mkdir .libs/libshp.lax
-@@ -133,15 +134,21 @@
+@@ -136,15 +139,23 @@
  
  lib_install:
  	cp .libs/libshp.la .libs/libshp.lai
@@ -75,6 +76,7 @@
 +	/bin/sh ./mkinstalldirs $(libdir)
 +	/bin/sh ./libtool  --mode=install $(INSTALL) -c libshp.la $(libdir)/libshp.la
 +	$(INSTALL) -c .libs/libshp.so.$(LIBSHP_VERSION) $(libdir)/libshp.so.$(LIBSHP_VERSION)
++
 +	(cd $(libdir) && rm -f libshp.so.1 && ln -s libshp.so.$(LIBSHP_VERSION) libshp.so.1)
 +	(cd $(libdir) && rm -f libshp.so && ln -s libshp.so.$(LIBSHP_VERSION) libshp.so)
 +	chmod +x $(libdir)/libshp.so.$(LIBSHP_VERSION)
@@ -90,3 +92,4 @@
 +	install dbfadd dbfcreate dbfdump shpadd shpcreate shpdump shptest $(bindir)/
 +
 +install: bin_install lib_install
++

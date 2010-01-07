@@ -1,19 +1,20 @@
 # This RPM will possibly fail on PowerPCs, but I am ignoring this.
 Summary: API in "C" for Shapefile handling
 Name: shapelib
-Version: 1.2.10
-Release: 20.20060304cvs
-URL: http://shapelib.maptools.org/
-Source: http://shapelib.maptools.org/dl/shapelib-%{version}.tar.gz
-Patch0: shapelib-1.2.10-Makefile.patch
-Patch1: shapelib-1.2.10-endian.patch
-Patch2: shapelib-1.2.10-Makefile2.patch
-Patch3: shapelib-build-id.patch
+Version: 1.3.0b1
+Release: 1%{?dist}
 # No version of the LGPL is given.
 License: LGPLv2+ or MIT
+URL: http://shapelib.maptools.org/
+Source: http://download.osgeo.org/shapelib/shapelib-%{version}.tar.gz
+Patch0: shapelib-1.3.0b1-Makefile.patch
+Patch1: shapelib-1.2.10-endian.patch
+Patch2: shapelib-1.3.0b1-Makefile2.patch
+Patch3: shapelib-1.3.0b1-buildid.patch
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Group: Development/Libraries
 BuildRequires: proj-devel >= 4.4.1
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires: gdal-devel
 
 %package devel
 Summary: Development files for shapelib
@@ -31,10 +32,12 @@ This package contains libshp and the appropriate header files.
 
 %prep
 %setup -q -T -b 0
-%patch0 -p1 -b .buildroot
+%patch0 -p1 -b .makefile
 %patch1 -p1 -b .endian
-%patch2 -p1 -b .buildroot
-%patch3 -p1 -b .buildroot
+%patch2 -p1 -b .makefile2
+%patch3 -p1 -b .buildid
+sed -i "s/\r//g" README
+chmod -x README
 
 %build
 make %{?_smp_mflags} libdir=%{_libdir} CFLAGS="$RPM_OPT_FLAGS" lib
@@ -69,12 +72,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root,-)
+%doc LICENSE.LGPL README
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/*.a
 %exclude %{_libdir}/libshp.la
 
 %changelog
+* Thu Jan 07 2010 Lucian Langa <cooly@gnome.eu.org> - 1.3.0b1-1
+- misc cleanups
+- update BR
+- fix source0
+- update to latest upstream snapshot
+
 * Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.10-20.20060304cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
@@ -130,7 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 - Add source URL
 - Removed proj requirement as it is automatically detected.
 - Added epoch to proj-devel requirement
-- Fixed %post and %postun
+- Fixed post and postun
 - Changed group to Development/Libraries, although this appears to be only
   somewhat satisfactory.
 - Removed "which make"

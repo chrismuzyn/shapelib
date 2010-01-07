@@ -1,6 +1,7 @@
---- shapelib-1.2.11-orig/contrib/Makefile	2006-01-07 12:34:14.000000000 -0800
-+++ shapelib-1.2.11/contrib/Makefile	2006-03-05 20:09:06.000000000 -0800
-@@ -1,9 +1,10 @@
+diff -Naur shapelib-1.3.0b1/contrib/Makefile shapelib-1.3.0b1-mod/contrib/Makefile
+--- shapelib-1.3.0b1/contrib/Makefile	2004-06-24 03:55:52.000000000 +0300
++++ shapelib-1.3.0b1-mod/contrib/Makefile	2010-01-07 09:42:05.000000000 +0200
+@@ -1,13 +1,14 @@
 +bindir = /usr/local/bin
  
  #LINKOPT	=	/usr/local/lib/libdbmalloc.a
@@ -11,6 +12,11 @@
 +# ENDIAN	=	-D_LITTLE_ENDIAN
  
  CFLAGS	=	-g -I.. -DPROJ4 $(ENDIAN) -DDEBUG -DDEBUG2 
+ 
+-SHPOBJ	=	../shpopen.o ../dbfopen.o 
++SHPOBJ	=	../shpopen.o ../dbfopen.o  -lgdal
+ 
+ SHPGOBJ =	../shpopen.o ../dbfopen.o shpgeo.o
  
 @@ -32,7 +33,7 @@
  shpdata:	shpdata.c $(SHPGOBJ)
