@@ -2,7 +2,7 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.3.0b1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # No version of the LGPL is given.
 License: LGPLv2+ or MIT
 URL: http://shapelib.maptools.org/
@@ -14,7 +14,6 @@ Patch3: shapelib-1.3.0b1-buildid.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Group: Development/Libraries
 BuildRequires: proj-devel >= 4.4.1
-BuildRequires: gdal-devel
 
 %package devel
 Summary: Development files for shapelib
@@ -79,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{_libdir}/libshp.la
 
 %changelog
+* Thu Jan 07 2010 Lucian Langa <cooly@gnome.eu.org> - 1.3.0b1-2
+- fix patch2 - no not depend on gdal
+
 * Thu Jan 07 2010 Lucian Langa <cooly@gnome.eu.org> - 1.3.0b1-1
 - misc cleanups
 - update BR
