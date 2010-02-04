@@ -2,7 +2,7 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.3.0b1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # No version of the LGPL is given.
 License: LGPLv2+ or MIT
 URL: http://shapelib.maptools.org/
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Thu Feb 04 2010 Lucian Langa <cooly@gnome.eu.org> - 1.3.0b1-4
+- misc cleanups
+
 * Thu Feb 04 2010 Lucian Langa <cooly@gnome.eu.org> - 1.3.0b1-3
 - do not package static libfiles (#556094)
 
