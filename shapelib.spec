@@ -63,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %{_bindir}/*
 %{_libdir}/*.so.*
 

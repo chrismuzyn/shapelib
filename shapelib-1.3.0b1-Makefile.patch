@@ -52,7 +52,7 @@ diff -Naur shapelib-1.3.0b1/Makefile shapelib-1.3.0b1-mod/Makefile
 +	$(CC) -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. $(CFLAGS) $(LINKOPTS) -c  -fPIC -DPIC dbfopen.c -o .libs/dbfopen.lo
 +	$(CC) -DPACKAGE=\"libshp\" -DVERSION=\"$(SHPLIB_VERSION)\" -DSTDC_HEADERS=1 -I. $(CFLAGS) $(LINKOPTS) -c dbfopen.c -o dbfopen.o >/dev/null 2>&1
  	mv -f .libs/dbfopen.lo dbfopen.lo
--	/bin/sh ./libtool --mode=link gcc  -g -O2  -o libshp.la -rpath /usr/local/lib -version-info 1:1:0 shpopen.lo shptree.lo dbfopen.lo  
+-	/bin/sh ./libtool --mode=link gcc  -g -O2  -o libshp.la -rpath /usr/local/lib -version-info 1:1:0 shpopen.lo shptree.lo dbfopen.lo safileio.lo
 +	/bin/sh ./libtool --mode=link $(CC) $(CFLAGS) $(LINKOPTS) -o libshp.la -rpath $(libdir) -version-info 1:1:0 shpopen.lo shptree.lo dbfopen.lo
  	rm -fr .libs/libshp.la .libs/libshp.* .libs/libshp.*
  	rm -fr .libs/libshp.lax
