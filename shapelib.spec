@@ -2,7 +2,7 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.3.0b1
-Release: 2%{?dist}
+Release: 3%{?dist}
 # No version of the LGPL is given.
 License: LGPLv2+ or MIT
 URL: http://shapelib.maptools.org/
@@ -49,6 +49,8 @@ make %{?_smp_mflags} libdir=%{_libdir} EXTRACFLAGS="$RPM_OPT_FLAGS"
 rm -rf $RPM_BUILD_ROOT
 
 %makeinstall
+find %{buildroot} -name \*\.a -print | xargs rm -f
+find %{buildroot} -name \*\.la -print | xargs rm -f
 
 cd contrib
 %makeinstall
@@ -74,10 +76,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE.LGPL README
 %{_includedir}/*
 %{_libdir}/*.so
-%{_libdir}/*.a
-%exclude %{_libdir}/libshp.la
 
 %changelog
+* Thu Feb 04 2010 Lucian Langa <cooly@gnome.eu.org> - 1.3.0b1-3
+- do not package static libfiles (#556094)
+
 * Thu Jan 07 2010 Lucian Langa <cooly@gnome.eu.org> - 1.3.0b1-2
 - fix patch2 - no not depend on gdal
 
