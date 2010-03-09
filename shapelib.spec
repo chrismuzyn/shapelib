@@ -1,19 +1,16 @@
-%define cvsdate 20100216
-%define snapshot %{cvsdate}cvs
-%define tarfile shapelib-%{version}-%{cvsdate}.tar.gz
 # This RPM will possibly fail on PowerPCs, but I am ignoring this.
 Summary: API in "C" for Shapefile handling
 Name: shapelib
-Version: 1.2.10
-Release: 2.%{snapshot}%{?dist}
+Version: 1.3.0b1
+Release: 5%{?dist}
 # No version of the LGPL is given.
 License: LGPLv2+ or MIT
 URL: http://shapelib.maptools.org/
-Source: http://download.osgeo.org/shapelib/%{tarfile}
-Patch0: shapelib-1.2.10-Makefile.patch
-Patch1: shapelib-1.2.10-endian.patch
-Patch2: shapelib-1.2.10-Makefile2.patch
-Patch3: shapelib-1.2.10-buildid.patch
+Source: http://download.osgeo.org/shapelib/%{name}-%{version}.tar.gz
+Patch0: shapelib-1.3.0b1-Makefile.patch
+Patch1: shapelib-1.3.0b1-Makefile2.patch
+Patch2: shapelib-1.2.10-endian.patch
+Patch3: shapelib-1.3.0b1-buildid.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Group: Development/Libraries
 BuildRequires: proj-devel >= 4.4.1
@@ -35,8 +32,8 @@ This package contains libshp and the appropriate header files.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1 -b .makefile
-%patch1 -p1 -b .endian
-%patch2 -p1 -b .makefile2
+%patch1 -p1 -b .makefile2
+%patch2 -p1 -b .endian
 %patch3 -p1 -b .buildid
 sed -i "s/\r//g" README
 chmod -x README
@@ -81,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Tue Mar 09 2010 Lucian Langa <cooly@gnome.eu.org> - 1.3.0b1-5
+- update to latest upstream version
+
 * Fri Feb 19 2010 Lucian Langa <cooly@gnome.eu.org> - 1.2.10-2.20100216cvs
 - update patch0-3 fix undefined symbols
 
