@@ -1,14 +1,14 @@
 # This RPM will possibly fail on PowerPCs, but I am ignoring this.
 Summary: API in "C" for Shapefile handling
 Name: shapelib
-Version: 1.3.0b1
-Release: 5%{?dist}
+Version: 1.3.0b2
+Release: 6%{?dist}
 # No version of the LGPL is given.
 License: LGPLv2+ or MIT
 URL: http://shapelib.maptools.org/
 Source: http://download.osgeo.org/shapelib/%{name}-%{version}.tar.gz
 Patch0: shapelib-1.3.0b1-Makefile.patch
-Patch1: shapelib-1.3.0b1-Makefile2.patch
+Patch1: shapelib-1.3.0b2-Makefile2.patch
 Patch2: shapelib-1.2.10-endian.patch
 Patch3: shapelib-1.3.0b1-buildid.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Wed May 19 2010 Lucian Langa <cooly@gnome.eu.org> - 1.3.0b2-6
+- update to latest upstream beta
+
 * Tue Mar 09 2010 Lucian Langa <cooly@gnome.eu.org> - 1.3.0b1-5
 - update to latest upstream version
 
