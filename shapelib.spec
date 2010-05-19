@@ -5,7 +5,7 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.2.10
-Release: 2.%{snapshot}%{?dist}
+Release: 22.%{snapshot}%{?dist}
 # No version of the LGPL is given.
 License: LGPLv2+ or MIT
 URL: http://shapelib.maptools.org/
@@ -81,6 +81,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Wed May 19 2010 Lucian Langa <cooly@gnome.eu.org> - 1.2.10-22.20100216cvs
+- fix broken pre-release number
+
 * Fri Feb 19 2010 Lucian Langa <cooly@gnome.eu.org> - 1.2.10-2.20100216cvs
 - update patch0-3 fix undefined symbols
 
