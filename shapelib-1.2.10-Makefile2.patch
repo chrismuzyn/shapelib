@@ -1,15 +1,6 @@
 diff -Naur shapelib-1.2.10/contrib/Makefile shapelib-1.2.10-mod/contrib/Makefile
 --- shapelib-1.2.10/contrib/Makefile	2010-01-04 06:08:02.000000000 +0200
 +++ shapelib-1.2.10-mod/contrib/Makefile	2010-02-16 10:18:48.000000000 +0200
-@@ -3,7 +3,7 @@
- #CFLAGS	=	-g
- 
- # Endian: define either _LITTLE_ENDIAN or _BIG_ENDIAN
--ENDIAN	=	-D_LITTLE_ENDIAN
-+#ENDIAN	=	-D_LITTLE_ENDIAN
- 
- CFLAGS	=	-g -I.. -I$(HOME)/bld/include -DPROJ4 $(ENDIAN) -DDEBUG -DDEBUG2 
- 
 @@ -32,7 +32,7 @@
  shpdata:	shpdata.c $(SHPGOBJ)
  	$(CC) $(CFLAGS) shpdata.c ${SHPOBJ} $(LINKOPT) $(GEOOBJ) -o shpdata
