@@ -2,7 +2,7 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.3.0b2
-Release: 7.1%{?dist}
+Release: 8.1%{?dist}
 # No version of the LGPL is given.
 License: LGPLv2+ or MIT
 URL: http://shapelib.maptools.org/
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Sat Jan 14 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.0b2-8.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Thu Apr 21 2011 Karsten Hopp <karsten@redhat.com> 1.3.0b2-7.1
 - remove endian definition from Makefile, leave it to endian.h
 
