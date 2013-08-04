@@ -2,7 +2,7 @@
 Summary: API in "C" for Shapefile handling
 Name: shapelib
 Version: 1.3.0b2
-Release: 10.1%{?dist}
+Release: 11.1%{?dist}
 # No version of the LGPL is given.
 License: LGPLv2+ or MIT
 URL: http://shapelib.maptools.org/
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.0b2-11.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.0b2-10.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
