@@ -75,5 +75,5 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_bindir}/*
 
 %changelog
-* Mon Jan 03 2014 Sandro Mani <manisandro@gmail.com> - 1.3.0-1
+* Mon Feb 03 2014 Sandro Mani <manisandro@gmail.com> - 1.3.0-1
 - Initial package for epel7
