@@ -27,10 +27,18 @@ index fbe7b06..69d8098 100644
      sprintf( pszFullname, "%s.cpg", pszBasename );
      if( pszCodePage != NULL )
 diff --git a/shptree.c b/shptree.c
-index 409134e..00673aa 100644
+index 409134e..4fccfab 100644
 --- a/shptree.c
 +++ b/shptree.c
-@@ -844,22 +844,23 @@ void SHPCloseDiskTree( SHPTreeDiskHandle hDiskTree )
+@@ -93,6 +93,7 @@
+ #include <assert.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <limits.h>
+ 
+ #ifdef USE_CPL
+ #include "cpl_error.h"
+@@ -844,22 +845,23 @@ void SHPCloseDiskTree( SHPTreeDiskHandle hDiskTree )
  static int
  SHPSearchDiskTreeNode( SHPTreeDiskHandle hDiskTree, double *padfBoundsMin, double *padfBoundsMax,
                         int **ppanResultBuffer, int *pnBufferMax, 
@@ -61,7 +69,7 @@ index 409134e..00673aa 100644
      if ( bNeedSwap )
      {
          SwapWord( 8, adfNodeBoundsMin + 0 );
-@@ -868,9 +869,30 @@ SHPSearchDiskTreeNode( SHPTreeDiskHandle hDiskTree, double *padfBoundsMin, doubl
+@@ -868,9 +870,30 @@ SHPSearchDiskTreeNode( SHPTreeDiskHandle hDiskTree, double *padfBoundsMin, doubl
          SwapWord( 8, adfNodeBoundsMax + 1 );
      }
        
@@ -93,7 +101,7 @@ index 409134e..00673aa 100644
  /* -------------------------------------------------------------------- */
  /*      If we don't overlap this node at all, we can just fseek()       */
  /*      pass this node info and all subnodes.                           */
-@@ -890,13 +912,31 @@ SHPSearchDiskTreeNode( SHPTreeDiskHandle hDiskTree, double *padfBoundsMin, doubl
+@@ -890,13 +913,31 @@ SHPSearchDiskTreeNode( SHPTreeDiskHandle hDiskTree, double *padfBoundsMin, doubl
      {
          if( *pnResultCount + numshapes > *pnBufferMax )
          {
@@ -129,7 +137,7 @@ index 409134e..00673aa 100644
  
          if (bNeedSwap )
          {
-@@ -910,14 +950,23 @@ SHPSearchDiskTreeNode( SHPTreeDiskHandle hDiskTree, double *padfBoundsMin, doubl
+@@ -910,14 +951,23 @@ SHPSearchDiskTreeNode( SHPTreeDiskHandle hDiskTree, double *padfBoundsMin, doubl
  /* -------------------------------------------------------------------- */
  /*      Process the subnodes.                                           */
  /* -------------------------------------------------------------------- */
@@ -155,7 +163,7 @@ index 409134e..00673aa 100644
              return FALSE;
      }
  
-@@ -1014,7 +1063,7 @@ int* SHPSearchDiskTreeEx( SHPTreeDiskHandle hDiskTree,
+@@ -1014,7 +1064,7 @@ int* SHPSearchDiskTreeEx( SHPTreeDiskHandle hDiskTree,
  /* -------------------------------------------------------------------- */
      if( !SHPSearchDiskTreeNode( hDiskTree, padfBoundsMin, padfBoundsMax, 
                                  &panResultBuffer, &nBufferMax, 
@@ -164,7 +172,7 @@ index 409134e..00673aa 100644
      {
          if( panResultBuffer != NULL )
              free( panResultBuffer );
-@@ -1025,6 +1074,10 @@ int* SHPSearchDiskTreeEx( SHPTreeDiskHandle hDiskTree,
+@@ -1025,6 +1075,10 @@ int* SHPSearchDiskTreeEx( SHPTreeDiskHandle hDiskTree,
  /*      Sort the id array                                               */
  /* -------------------------------------------------------------------- */
      qsort(panResultBuffer, *pnShapeCount, sizeof(int), compare_ints);
