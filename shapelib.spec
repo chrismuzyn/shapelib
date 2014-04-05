@@ -1,6 +1,6 @@
 Name:          shapelib
 Version:       1.3.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -18,6 +18,8 @@ Source:        http://download.osgeo.org/shapelib/%{name}-1.3.0.tar.gz
 #
 # Upstream is notified about these modifications: http://bugzilla.maptools.org/show_bug.cgi?id=2447
 Patch0:        shapelib_autotools.patch
+# Backports from gdal bundled shapelib
+Patch1:        shapelib_backports.patch
 
 BuildRequires: autoconf automake libtool
 BuildRequires: proj-devel >= 4.4.1
@@ -45,6 +47,7 @@ This package contains various utility programs distributed with shapelib.
 %prep
 %setup -q -n %{name}-1.3.0
 %patch0 -p1
+%patch1 -p1
 
 %build
 NOCONFIGURE=1 sh ./autogen.sh
@@ -75,5 +78,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_bindir}/*
 
 %changelog
+* Sun Apr 06 2014 Sandro Mani <manisandro@gmail.com> - 1.3.0-2
+- Backport some fixes from the gdal bundled shapelib
+
 * Mon Feb 03 2014 Sandro Mani <manisandro@gmail.com> - 1.3.0-1
 - Initial package for epel7
