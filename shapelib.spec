@@ -3,7 +3,7 @@ Name:          shapelib
 # and since for RPM 1.3.0 < 1.3.0b2, this is the only way to specifiy that 1.3.0 > 1.3.0b2
 # without bumping the epoch.
 Version:       1.3.0f
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -47,28 +47,34 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 %description tools
 This package contains various utility programs distributed with shapelib.
 
+
 %prep
 %setup -q -n %{name}-1.3.0
 %patch0 -p1
 %patch1 -p1
+
 
 %build
 NOCONFIGURE=1 sh ./autogen.sh
 %configure --disable-static
 make %{?_smp_mflags}
 
+
 %install
 %make_install
 
 # Remove static libraries
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
+
 
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
+
 %files
-%doc COPYING README README.tree ChangeLog web/*.html
+%doc README README.tree ChangeLog web/*.html
+%license COPYING
 %{_libdir}/libshp.so.*
 
 %files devel
@@ -80,7 +86,11 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %doc contrib/doc/
 %{_bindir}/*
 
+
 %changelog
+* Thu Mar 12 2015 Sandro Mani <manisandro@gmail.com> - 1.3.0f-5
+- Rebuild (proj)
+
 * Mon Aug 18 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.0f-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
