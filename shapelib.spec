@@ -3,7 +3,7 @@ Name:          shapelib
 # and since for RPM 1.3.0 < 1.3.0b2, this is the only way to specifiy that 1.3.0 > 1.3.0b2
 # without bumping the epoch.
 Version:       1.3.0f
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -88,6 +88,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 1.3.0f-7
+- Rebuilt for GCC 5 C++11 ABI change
+
 * Thu Mar 12 2015 Sandro Mani <manisandro@gmail.com> - 1.3.0f-5
 - Rebuild (proj)
 
