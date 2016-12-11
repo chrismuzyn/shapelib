@@ -1,8 +1,8 @@
-%global pre RC1
+#global pre RC1
 
 Name:          shapelib
 Version:       1.4.0
-Release:       0.1%{?pre:.%pre}%{?dist}
+Release:       1%{?pre:.%pre}%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -11,7 +11,7 @@ Summary:       C library for handling ESRI Shapefiles
 # - contrib/dbfcat.c:  Public domain
 License:       (LGPLv2+ or MIT) and GPLv2+ and Public Domain
 URL:           http://shapelib.maptools.org/
-Source:        http://download.osgeo.org/shapelib/%{name}-%{version}%{pre}.tar.gz
+Source:        http://download.osgeo.org/shapelib/%{name}-%{version}%{?pre:%pre}.tar.gz
 
 BuildRequires: gcc
 BuildRequires: make
@@ -64,7 +64,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %files
 %doc README README.tree ChangeLog web/*.html
 %license COPYING
-%{_libdir}/libshp.so.1*
+%{_libdir}/libshp.so.2*
 
 %files devel
 %{_includedir}/shapefil.h
@@ -77,6 +77,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Dec 11 2016 Sandro Mani <manisandro@gmail.com> - 1.4.0-1
+- Update to 1.4.0
+
 * Wed Dec 07 2016 Sandro Mani <manisandro@gmail.com> - 1.4.0-0.1.RC1
 - Update to 1.4.0-RC1
 
