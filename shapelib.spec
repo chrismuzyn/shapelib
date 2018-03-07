@@ -2,7 +2,7 @@
 
 Name:          shapelib
 Version:       1.4.1
-Release:       2%{?pre:.%pre}%{?dist}
+Release:       3%{?pre:.%pre}%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -13,7 +13,7 @@ License:       (LGPLv2+ or MIT) and GPLv2+ and Public Domain
 URL:           http://shapelib.maptools.org/
 Source:        http://download.osgeo.org/shapelib/%{name}-%{version}%{?pre:%pre}.tar.gz
 
-BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: proj-devel >= 4.4.1
 
@@ -77,6 +77,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Mar 07 2018 Sandro Mani <manisandro@gmail.com> - 1.4.1-3
+- BR: gcc-c++
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
