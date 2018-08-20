@@ -2,7 +2,7 @@
 
 Name:          shapelib
 Version:       1.4.1
-Release:       4%{?pre:.%pre}%{?dist}
+Release:       5%{?pre:.%pre}%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -11,11 +11,20 @@ Summary:       C library for handling ESRI Shapefiles
 # - contrib/dbfcat.c:  Public domain
 License:       (LGPLv2+ or MIT) and GPLv2+ and Public Domain
 URL:           http://shapelib.maptools.org/
-Source:        http://download.osgeo.org/shapelib/%{name}-%{version}%{?pre:%pre}.tar.gz
+Source0:       http://download.osgeo.org/shapelib/%{name}-%{version}%{?pre:%pre}.tar.gz
+# Man pages from debian package
+# wget https://salsa.debian.org/debian-gis-team/shapelib/-/archive/master/shapelib-master.tar.gz
+# tar --strip-components=2 -xvf shapelib-master.tar.gz shapelib-master/debian/man
+# tar -czf shapelib-man.tar.gz man/
+# rm -r man
+Source1:       %{name}-man.tar.gz
 
+BuildRequires: automake autoconf libtool
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: proj-devel >= 4.4.1
+# For man pages
+BuildRequires: rubygem-ronn
 
 %description
 The Shapefile C Library provides the ability to write
@@ -41,10 +50,13 @@ This package contains various utility programs distributed with shapelib.
 
 
 %prep
-%autosetup
+%autosetup -a1
 
 
 %build
+# Kill rpath
+autoreconf -ifv
+
 %configure --disable-static
 %make_build
 
@@ -55,6 +67,10 @@ This package contains various utility programs distributed with shapelib.
 # Remove static libraries
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
+# Build man pages
+ronn -r --date="$(LC_ALL=C date -u "+%Y-%m-%d")" --manual=%{name} man/*.md
+mkdir -p %{buildroot}%{_mandir}/man1/
+install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
 %post -p /sbin/ldconfig
 
@@ -74,9 +90,13 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %files tools
 %doc contrib/doc/
 %{_bindir}/*
+%{_mandir}/man1/*.1*
 
 
 %changelog
+* Mon Aug 20 2018 Sandro Mani <manisandro@gmail.com> - 1.4.1-5
+- Add man pages (#1619071)
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
