@@ -72,9 +72,7 @@ ronn -r --date="$(LC_ALL=C date -u "+%Y-%m-%d")" --manual=%{name} man/*.md
 mkdir -p %{buildroot}%{_mandir}/man1/
 install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 
 %files
