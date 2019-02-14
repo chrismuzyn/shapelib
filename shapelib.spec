@@ -2,7 +2,7 @@
 
 Name:          shapelib
 Version:       1.4.1
-Release:       6%{?pre:.%pre}%{?dist}
+Release:       7%{?pre:.%pre}%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -92,6 +92,9 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Thu Feb 14 2019 Björn Esser <besser82@fedoraproject.org> - 1.4.1-7
+- rebuilt (proj)
+
 * Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
