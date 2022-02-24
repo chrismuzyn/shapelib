@@ -2,7 +2,7 @@
 
 Name:          shapelib
 Version:       1.5.0
-Release:       6%{?pre:.%pre}%{?dist}
+Release:       9%{?pre:.%pre}%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -25,6 +25,17 @@ BuildRequires: make
 BuildRequires: proj-devel >= 4.4.1
 # For man pages
 BuildRequires: rubygem-ronn
+
+BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-gcc-c++
+BuildRequires: mingw32-binutils
+BuildRequires: mingw32-proj
+
+BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-gcc-c++
+BuildRequires: mingw64-binutils
+BuildRequires: mingw64-proj
+
 
 %description
 The Shapefile C Library provides the ability to write
@@ -49,6 +60,55 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 This package contains various utility programs distributed with shapelib.
 
 
+%package -n mingw32-%{name}
+Summary:        MinGW Windows %{name} library
+
+%description -n mingw32-%{name}
+%{summary}.
+
+
+%package -n mingw32-%{name}-static
+Summary:       Static version of the  MinGW Windows %{name} library
+Requires:      mingw32-%{name} = %{version}-%{release}
+
+%description -n mingw32-%{name}-static
+%{summary}.
+
+
+%package -n mingw32-%{name}-tools
+Summary:       Tools for the  MinGW Windows %{name} library
+Requires:      mingw32-%{name} = %{version}-%{release}
+
+%description -n mingw32-%{name}-tools
+%{summary}.
+
+
+%package -n mingw64-%{name}
+Summary:        MinGW Windows %{name} library
+
+%description -n mingw64-%{name}
+%{summary}.
+
+
+%package -n mingw64-%{name}-static
+Summary:       Static version of the  MinGW Windows %{name} library
+Requires:      mingw64-%{name} = %{version}-%{release}
+
+%description -n mingw64-%{name}-static
+%{summary}.
+
+
+%package -n mingw64-%{name}-tools
+Summary:       Tools for the  MinGW Windows %{name} library
+Requires:      mingw64-%{name} = %{version}-%{release}
+
+%description -n mingw64-%{name}-tools
+%{summary}.
+
+
+%{?mingw_debug_package}
+
+
 %prep
 %autosetup -a1
 
@@ -57,12 +117,22 @@ This package contains various utility programs distributed with shapelib.
 # Kill rpath
 autoreconf -ifv
 
+# Native build
+mkdir build_native
+pushd build_native
+%define _configure ../configure
 %configure --disable-static
 %make_build
+popd
+
+# MinGW build
+%mingw_configure
+%mingw_make_build
 
 
 %install
-%make_install
+%make_install -C build_native
+%mingw_make_install
 
 # Remove static libraries
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
@@ -72,7 +142,8 @@ ronn -r --date="$(LC_ALL=C date -u "+%Y-%m-%d")" --manual=%{name} man/*.md
 mkdir -p %{buildroot}%{_mandir}/man1/
 install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
-%ldconfig_scriptlets
+
+%mingw_debug_install_post
 
 
 %files
@@ -90,8 +161,37 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 %{_bindir}/*
 %{_mandir}/man1/*.1*
 
+%files -n mingw32-%{name}
+%license COPYING
+%{mingw32_bindir}/libshp-2.dll
+%{mingw32_includedir}/shapefil.h
+%{mingw32_libdir}/libshp.dll.a
+%{mingw32_libdir}/pkgconfig/shapelib.pc
+
+%files -n mingw32-%{name}-static
+%{mingw32_libdir}/libshp.a
+
+%files -n mingw32-%{name}-tools
+%{mingw32_bindir}/*.exe
+
+%files -n mingw64-%{name}
+%license COPYING
+%{mingw64_bindir}/libshp-2.dll
+%{mingw64_includedir}/shapefil.h
+%{mingw64_libdir}/libshp.dll.a
+%{mingw64_libdir}/pkgconfig/shapelib.pc
+
+%files -n mingw64-%{name}-static
+%{mingw64_libdir}/libshp.a
+
+%files -n mingw64-%{name}-tools
+%{mingw64_bindir}/*.exe
+
 
 %changelog
+* Thu Feb 24 2022 Sandro Mani <manisandro@gmail.com> - 1.5.0-9
+- Add mingw subpackage
+
 * Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
