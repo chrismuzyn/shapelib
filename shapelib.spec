@@ -2,7 +2,7 @@
 
 Name:          shapelib
 Version:       1.5.0
-Release:       9%{?pre:.%pre}%{?dist}
+Release:       10%{?pre:.%pre}%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -61,7 +61,8 @@ This package contains various utility programs distributed with shapelib.
 
 
 %package -n mingw32-%{name}
-Summary:        MinGW Windows %{name} library
+Summary:       MinGW Windows %{name} library
+BuildArch:     noarch
 
 %description -n mingw32-%{name}
 %{summary}.
@@ -70,6 +71,7 @@ Summary:        MinGW Windows %{name} library
 %package -n mingw32-%{name}-static
 Summary:       Static version of the  MinGW Windows %{name} library
 Requires:      mingw32-%{name} = %{version}-%{release}
+BuildArch:     noarch
 
 %description -n mingw32-%{name}-static
 %{summary}.
@@ -78,13 +80,15 @@ Requires:      mingw32-%{name} = %{version}-%{release}
 %package -n mingw32-%{name}-tools
 Summary:       Tools for the  MinGW Windows %{name} library
 Requires:      mingw32-%{name} = %{version}-%{release}
+BuildArch:     noarch
 
 %description -n mingw32-%{name}-tools
 %{summary}.
 
 
 %package -n mingw64-%{name}
-Summary:        MinGW Windows %{name} library
+Summary:       MinGW Windows %{name} library
+BuildArch:     noarch
 
 %description -n mingw64-%{name}
 %{summary}.
@@ -93,6 +97,7 @@ Summary:        MinGW Windows %{name} library
 %package -n mingw64-%{name}-static
 Summary:       Static version of the  MinGW Windows %{name} library
 Requires:      mingw64-%{name} = %{version}-%{release}
+BuildArch:     noarch
 
 %description -n mingw64-%{name}-static
 %{summary}.
@@ -101,6 +106,7 @@ Requires:      mingw64-%{name} = %{version}-%{release}
 %package -n mingw64-%{name}-tools
 Summary:       Tools for the  MinGW Windows %{name} library
 Requires:      mingw64-%{name} = %{version}-%{release}
+BuildArch:     noarch
 
 %description -n mingw64-%{name}-tools
 %{summary}.
@@ -189,6 +195,9 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Thu Feb 24 2022 Sandro Mani <manisandro@gmail.com> - 1.5.0-10
+- Make mingw subpackages noarch
+
 * Thu Feb 24 2022 Sandro Mani <manisandro@gmail.com> - 1.5.0-9
 - Add mingw subpackage
 
