@@ -118,7 +118,7 @@ BuildArch:     noarch
 
 
 %prep
-%autosetup -a1
+%autosetup -p1 -a1
 
 
 %build
