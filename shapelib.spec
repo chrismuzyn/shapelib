@@ -2,7 +2,7 @@
 
 Name:          shapelib
 Version:       1.5.0
-Release:       11%{?pre:.%pre}%{?dist}
+Release:       12%{?pre:.%pre}%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -18,6 +18,8 @@ Source0:       http://download.osgeo.org/shapelib/%{name}-%{version}%{?pre:%pre}
 # tar -czf shapelib-man.tar.gz man/
 # rm -r man
 Source1:       %{name}-man.tar.gz
+# Backport fix for CVE-2022-0699
+Patch0:        https://github.com/OSGeo/shapelib/commit/df1e996c541b3dc3f6bc8d589a140fdc8c544373.patch
 
 BuildRequires: automake autoconf libtool
 BuildRequires: gcc-c++
@@ -195,6 +197,9 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Mar 02 2022 Sandro Mani <manisandro@gmail.com> - 1.5.0-12
+- Backport fix for CVE-2022-0699
+
 * Thu Feb 24 2022 Sandro Mani <manisandro@gmail.com> - 1.5.0-11
 - Make mingw subpackages noarch
 
