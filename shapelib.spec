@@ -2,7 +2,7 @@
 
 Name:          shapelib
 Version:       1.5.0
-Release:       12%{?pre:.%pre}%{?dist}
+Release:       13%{?pre:.%pre}%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -197,6 +197,9 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Fri Mar 25 2022 Sandro Mani <manisandro@gmail.com> - 1.5.0-13
+- Rebuild with mingw-gcc-12
+
 * Wed Mar 02 2022 Sandro Mani <manisandro@gmail.com> - 1.5.0-12
 - Backport fix for CVE-2022-0699
 
