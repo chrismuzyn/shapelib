@@ -1,6 +1,6 @@
 Name:          shapelib
 Version:       1.3.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -78,6 +78,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_bindir}/*
 
 %changelog
+* Mon Feb 06 2023 Chris Muzyn <chris.muzyn@gmail.com> -  1.3.0-3
+- Backport double free fix to epel7
+
 * Sun Apr 06 2014 Sandro Mani <manisandro@gmail.com> - 1.3.0-2
 - Backport some fixes from the gdal bundled shapelib
 

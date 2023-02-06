@@ -183,3 +183,11 @@ index 409134e..4fccfab 100644
      
      return panResultBuffer;
  }
+@@ -113,7 +113,6 @@ static char ** split(const char *arg, const char *delim) {
+	free(result[--i]);
+      }
+      free(result);
+-     free(copy);
+      return NULL;
+    }
+    result = tmp;
